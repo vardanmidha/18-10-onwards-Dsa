@@ -1,0 +1,117 @@
+
+// https://leetcode.com/problems/combination-sum-ii/
+
+// class Solution
+// {
+
+// public:
+//     void helper_better(vector<int> &arr, int index, int target, vector<vector<int>> &ans, vector<int> &out)
+//     {
+
+        
+        
+        
+//         if ( target ==0 ||index>=arr.size())
+//         {
+            
+//             if(target==0){
+//             ans.push_back(out);
+//             }
+//             return;
+//         }
+
+//         for (int i = index; i < arr.size(); i++)
+//         {
+
+//             if (i > index && arr[i] == arr[i - 1])
+//             {
+
+//                 continue;
+//             }
+
+//             if (arr[i] > target)
+//             {
+
+//                 break;
+//             }
+
+//             out.push_back(arr[i]);
+
+//             helper_better(arr, i + 1, target - arr[i], ans, out);
+
+//             out.pop_back();
+//         }
+//     }
+
+// public:
+//     vector<vector<int>> combinationSum2(vector<int> &arr, int target)
+//     {
+
+//         sort(arr.begin(), arr.end());
+
+//         vector<vector<int>> ans;
+
+//         vector<int> out;
+
+//         helper_better(arr, 0, target, ans, out);
+
+//         return ans;
+//     }
+// };
+
+
+
+class Solution
+{
+
+public:
+    void helper_better(vector<int> &arr, int index, int target, vector<vector<int>> &ans, vector<int> &out)
+    {
+
+        
+//         if(index >=arr.size) - If it would have been the only base case then the code won't have worked..
+        
+        if (target == 0 || index >= arr.size())
+        {
+            if (target == 0)
+            {
+                ans.push_back(out);
+            }
+        }
+
+        for (int i = index; i < arr.size(); i++)
+        {
+
+            if (i > index && arr[i] == arr[i - 1])
+            {
+                continue;
+            }
+
+            if (arr[i] > target)
+            {
+                break;
+            }
+
+            out.push_back(arr[i]);
+
+            helper_better(arr, i+1, target - arr[i], ans, out);
+            
+//             BACKTRACK/
+             out.pop_back();
+        }
+    }
+
+public:
+    vector<vector<int>> combinationSum2(vector<int> &arr, int target)
+    {
+
+        vector<vector<int>> ans;
+        vector<int> out;
+
+        sort(arr.begin(), arr.end());
+
+        helper_better(arr, 0, target, ans, out);
+
+        return ans;
+    }
+};
