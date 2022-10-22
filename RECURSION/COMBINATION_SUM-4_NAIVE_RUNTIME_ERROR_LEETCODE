@@ -1,0 +1,85 @@
+class Solution
+{
+
+public:
+    int factorial(int n)
+    {
+
+        if (n == 0)
+        {
+            return 1;
+        }
+
+        return n * factorial(n - 1);
+    }
+
+public:
+    void helper(vector<int> &arr, int ind, int tar, int &ans, int res, vector<int> out)
+    {
+
+        unordered_map<int, int> mpp;
+
+        if (ind >= arr.size() || tar == 0)
+        {
+            if (tar == 0)
+            {
+                res = factorial(out.size());
+                
+                for(int i=0 ; i<out.size() ; i++){
+                    mpp[out[i]]++;
+                }
+                
+                for(int i=0 ; i<out.size() ; i++)
+                {
+                    
+                    if(mpp[out[i]] > 1 ){
+                        
+                        res = res/factorial(mpp[out[i]]);
+                        
+                        mpp[out[i]] = -1;
+                        
+                    }
+                    
+                    
+                    
+                }       
+                                    ans += res-1;
+
+                mpp.clear();
+                
+                 ans++;
+           
+
+               
+            }
+
+            return;
+        }
+
+        if (tar >= arr[ind])
+        {
+
+            out.push_back(arr[ind]);
+
+            helper(arr, ind, tar - arr[ind], ans, res, out);
+
+            out.pop_back();
+        }
+
+        helper(arr, ind + 1, tar, ans, res, out);
+    }
+
+public:
+    int combinationSum4(vector<int> &arr, int tar)
+    {
+
+        // vector<vector<int>> ans;
+        vector<int> out;
+        int ans = 0;
+
+     
+        helper(arr, 0, tar, ans, 0, out);
+   
+    return ans;
+    }
+};
