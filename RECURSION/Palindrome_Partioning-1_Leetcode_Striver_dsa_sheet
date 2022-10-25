@@ -1,0 +1,58 @@
+class Solution
+{
+
+public:
+    bool isPalindrome(string s, int start, int end)
+    {
+        while (start <= end)
+        {
+            if (s[start++] != s[end--])
+            {
+                return false;
+            }
+        }
+            return true;
+    }
+
+public:
+    void solve(int ind, string s, vector<string> &path, vector<vector<string>> &ans)
+    {
+
+        if (ind >= s.size())
+        {
+            ans.push_back(path);
+            return;
+        }
+
+        for (int i = ind; i < s.size(); i++)
+        {
+
+            if (isPalindrome(s, ind, i))
+            {
+
+//                 The path is storing sub-strings and calling recursion for further sub-strings.
+//                 The base case will hit at last index partition.
+                
+                path.push_back(s.substr(ind, i - ind + 1));
+                solve(i + 1, s, path, ans);
+
+                path.pop_back();
+            }
+        }
+    }
+
+public:
+    vector<vector<string>> partition(string s)
+    {
+
+//         vector<vector<string>> basically means 3-d array
+        vector<vector<string>> ans;
+
+    
+        vector<string> path;
+    
+        solve(0 , s , path , ans);
+        
+    return ans;
+    }
+};
