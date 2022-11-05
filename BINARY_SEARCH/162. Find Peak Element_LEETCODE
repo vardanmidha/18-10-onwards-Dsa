@@ -1,0 +1,62 @@
+//  https://leetcode.com/problems/find-peak-element/submissions/
+
+
+class Solution
+{
+public:
+    int findPeakElement(vector<int> &arr)
+    {
+
+        int ans = -1;
+
+        int n = arr.size();
+
+        int start = 0;
+        int end = arr.size() - 1;
+
+        while (start <= end)
+        {
+
+            int mid = start + (end - start) / 2;
+
+            int prev = (mid + n - 1) % n;
+            int next = (mid + 1) % n;
+
+            
+//             In simple binary search , we would move to mid+ 1 or mid-1 acc to conditions , nut here
+//             1) The array is not sorted
+//             2)Think of a simple thing , if arr[mid-1] > arr[mid] or arr[prev] > arr[mid](to be precise)
+//             Then it might be possible that prev is also greater than prev -1 , so in this case we are moving 
+//             end -1 , to check the array before mid.
+//             3) else move start = (mid+1) , (else means , arr[next] > arr[mid] && next <n);
+            
+            if (arr[mid] >= arr[next] && arr[mid] >= arr[prev])
+            {
+                ans = mid;
+                break;
+            }
+
+
+
+// Dry run it once , this only codition is a little tricky 
+//             AS we are checking prev and prev-1. Dry run it on [1,2].
+else if (arr[prev] >= arr[mid] && mid-1>=0)
+{
+    
+    end = mid-1;
+}
+
+else
+{
+    start = mid+1;
+}
+
+         
+         
+
+        }
+
+
+        return ans;
+    }
+};
