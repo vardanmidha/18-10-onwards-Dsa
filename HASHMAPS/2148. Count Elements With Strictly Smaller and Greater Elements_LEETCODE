@@ -1,0 +1,39 @@
+class Solution
+{
+public:
+    int countElements(vector<int> &nums)
+    {
+
+        int mini = *min_element(nums.begin(), nums.end());
+
+        int maxi = *max_element(nums.begin(), nums.end());
+
+        unordered_map<int, int> mpp;
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+
+            mpp[nums[i]]++;
+        }
+
+        int maxf = mpp[maxi];
+        int minf = mpp[mini];
+        int ans = 0;
+
+        if (maxi == mini)
+        {
+
+            ans = nums.size() - minf;
+        }
+
+        else
+        {
+
+            ans = nums.size() - maxf - minf;
+        }
+
+        return ans;
+
+    
+    }
+};
