@@ -1,0 +1,75 @@
+// PROB - 35
+//  https://leetcode.com/problems/search-insert-position/
+// In these types of questions generally the answer can be (start).
+
+
+class Solution {
+public:
+    int searchInsert(vector<int>& arr, int target) {
+        
+        
+        int start =0;
+        int end = arr.size()-1;
+        
+        
+        int res =0;
+        
+        if(arr[0] > target){
+            res =0;
+        }
+        if(arr[end] < target){
+            res = end+1;
+        }
+        
+        else{
+        while(start <=end){
+            
+            
+            int mid = start + (end-start)/2;
+            
+            
+            if(target <= arr[mid]){
+                
+                res = mid;
+                end = mid-1;
+                
+                
+                
+            }
+            
+            else{
+                start = mid+1;
+            }
+            
+            
+        }
+        
+        }   
+        
+        return res;
+    }
+};
+
+// class Solution {
+// public:
+//     int searchInsert(vector<int>& nums, int target) {
+//         int n=nums.size() ;
+//         int start= 0 ;
+//         int last= n-1 ;
+//         int mid= start + (last - start)/2 ;
+//         while(start <= last){
+//             mid= start + (last- start)/2 ;
+//             if(nums[mid] == target){
+//                 return mid ;
+//             }
+//             else if(nums[mid] > target){
+//                 last= mid -1 ;
+//             }
+//             else{
+//                 start= mid + 1 ;
+//             }
+//         }
+// 		// Edge Case
+//         return start ;
+//     }
+// };
