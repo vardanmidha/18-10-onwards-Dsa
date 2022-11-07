@@ -1,0 +1,88 @@
+//  Prob no. - 540
+
+// https://leetcode.com/problems/single-element-in-a-sorted-array/
+
+// It is clear in the question that every elemnet is occuring twice except for one element.
+// Twice
+class Solution
+{
+public:
+    int singleNonDuplicate(vector<int> &arr)
+    {
+        
+//         We are checking for input.size() == 1 , as for a single element both prev and next would be same 
+//         So to avoid this we are making two conditions.
+        if(arr.size() ==1){
+            
+            return arr[0];
+            
+        }
+        
+        
+
+        else{
+            
+        int start = 0;
+        int end = arr.size() - 1;
+
+        int n = arr.size();
+        while (start <= end)
+        {
+
+            int mid = start + (end - start) / 2;
+
+            int prev = (mid + n - 1) % n;
+            int next = (mid + 1) % n;
+
+            if (arr[mid] != arr[next] && arr[mid] != arr[prev])
+            {
+// In this condition means , we got our ans.
+
+                return arr[mid];
+            }
+
+            else if (arr[mid] == arr[prev])
+            {
+
+                
+                int ind = mid - start;
+
+//                 If even means The element is on the left side , as there would have been only one element left from mid 
+//                 So to compensate it , one single element was there.
+//                 Take example :  [1,1,2,3,3,4,4,8,8,9,9];
+//                 Mid = 3 , prev = 3;
+//                 So this condition hits , and we can clearly see that the elements before index 4 (ele 3) are 4.
+//                 So there must be an element that is occuring only once.
+                
+                
+                if (ind % 2 == 0)
+                {
+                    end = mid;
+                }
+                else
+                {
+                    start = mid + 1;
+                }
+            }
+
+            else
+            {
+
+                int ind = end - mid;
+
+                if (ind % 2 != 0)
+                {
+                    end = mid - 1;
+                }
+
+                else
+                {
+                    start = mid;
+                }
+            }
+        }
+            
+        }
+        return 0;
+    }
+};
