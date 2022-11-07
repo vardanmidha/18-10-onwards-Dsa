@@ -1,0 +1,53 @@
+class Solution
+{
+public:
+    int search(vector<int> &nums, int x)
+    {
+
+        int start = 0;
+        int end = nums.size() - 1;
+        int n = nums.size();
+
+        while (start <= end)
+        {
+
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == x)
+            {
+                return mid;
+            }
+
+            // Checking on left side
+            if (nums[start] <= nums[mid])
+            {
+
+                if (x >= nums[start] && x <= nums[mid])
+                {
+                    end = mid - 1;
+                }
+
+                else
+                {
+                    start = mid + 1;
+                }
+            }
+
+            // Checking on right side
+            // else
+            if(nums[mid] <= nums[end])
+            {
+                if (x >= nums[mid] && x <= nums[end])
+                {
+                    start = mid + 1;
+                }
+                else
+                {
+                    end = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+};
