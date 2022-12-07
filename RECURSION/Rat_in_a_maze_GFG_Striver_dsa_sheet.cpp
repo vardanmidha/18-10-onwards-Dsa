@@ -1,0 +1,105 @@
+
+// If not understood visit this question on take you forward , either from Striver Dsa sheet
+// Optimised solution
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution
+{
+
+public:
+    void solve(int i, int j, vector<vector<int>> &arr, int n, int di[], int dj[], string move, vector<string> &ans, vector<vector<int>> &vis)
+    {
+
+        if (i == n - 1 && j == n - 1)
+        {
+            ans.push_back(move);
+            return;
+        }
+
+        string out = "DLRU";
+
+        for (int ind = 0; ind < 4; ind++)
+        {
+
+            // ind = 0 , checks for Down "D"; as in nexti and nextj = {1 , 0} as in down (i+1 , j);
+            // ind =1 , checks for left "L" ; as in nexti and nextj = {0 , -1} as in down (i , j-1);
+            // ind =2 , checks for Right "R" ; as in nexti and nextj = {0 , 1} as in down (i , j+1);
+            // ind =3 , checks for UP "U" ; as in nexti and nextj = {-1 , 0} as in down (i-1 , j);
+
+            // These indexes stores i and j in better time complexity rather than checking for all 4 directions
+            int nexti = i + di[ind];
+            int nextj = j + dj[ind];
+
+            // Below checking the conditions if the element is in range and is not visited.
+
+            if (nexti >= 0 && nextj >= 0 && nexti < n && nextj < n && vis[nexti][nextj] != 0 && arr[nexti][nextj] == 1)
+            {
+
+                // Below not nexti or nextj as we need to make visited to that element
+                // Nexti and Nextj are just for checking DLRU
+                vis[i][j] = 1;
+
+                // Making Recursive call below;
+
+                solve(nexti, nextj, arr, n, di, dj, move + out[ind], ans, vis);
+
+                // Move + out[ind] means it stores answers as "D" - "DD" - "DDLR" and follow on.
+
+                // Now backtrack below
+
+                vis[i][j] = 0;
+            }
+        }
+    }
+
+    vector<string> findPath(vector<vector<int>> &arr, int n)
+    {
+        // Your code goes here
+
+        vector<string> ans;
+
+        vector<vector<int>> vis(n, vector<int>(n, 0));
+        // The vis is 2-d array which stores 0 at all indices initially.
+
+        // Di and Dj are arrays used to store DLRU , (Down , left , Right , Up) in lexicographical order.
+        int di[] = {1, 0, 0, -1};
+        int dj[] = {0, -1, 1, 0};
+
+        solve(0, 0, arr, n, di, dj, "", ans, vis);
+
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+        vector<vector<int>> m(n, vector<int>(n, 0));
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cin >> m[i][j];
+            }
+        }
+        Solution obj;
+        vector<string> result = obj.findPath(m, n);
+        sort(result.begin(), result.end());
+        if (result.size() == 0)
+            cout << -1;
+        else
+            for (int i = 0; i < result.size(); i++)
+                cout << result[i] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends

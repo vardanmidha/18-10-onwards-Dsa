@@ -8,21 +8,14 @@
 using namespace std ;
 
 
+
+
 int main()
 {
-    
+
+
+
     IOS;
-
-
     
-    
-
-cout<<"Hello world";
-
-// abd uirevbn 
-
-
-
-
 
 }
