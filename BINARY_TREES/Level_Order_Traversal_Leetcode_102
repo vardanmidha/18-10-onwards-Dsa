@@ -1,0 +1,124 @@
+// https://leetcode.com/problems/binary-tree-level-order-traversal/description/
+
+
+// Code is done by 2 approaches
+// app 1 - We are storing NULL for next level
+// app 2- We are traversing till size of queue 
+// Both are almost similar
+
+//  Also known as BFS
+
+// class Solution
+// {
+// public:
+//     vector<vector<int>> levelOrder(TreeNode *root)
+//     {
+
+//         vector<vector<int>> ans;
+//         vector<int> temp;
+//         queue<TreeNode *> qt;
+
+//         if (root == NULL)
+//         {
+//             return ans;
+//         }
+
+//         qt.push(root);
+//         qt.push(NULL);
+
+//         while (!qt.empty())
+//         {
+
+//             TreeNode *top = qt.front();
+//             qt.pop();
+
+//             if (top == NULL)
+//             {
+
+//                 ans.push_back(temp);
+//                 temp.clear();
+
+//                 if (!qt.empty())
+//                 {
+
+//                     qt.push(NULL);
+//                 }
+//             }
+
+//             else
+//             {
+
+//                 temp.push_back(top->val);
+
+//                 if (top->left != NULL)
+//                 {
+//                     qt.push(top->left);
+//                 }
+//                 if (top->right != NULL)
+//                 {
+//                     qt.push(top->right);
+//                 }
+//             }
+//         }
+
+//         return ans;
+//     }
+// };
+
+
+
+
+
+
+class Solution
+{
+public:
+    
+    
+ vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans; 
+
+        if(root == NULL) return ans; 
+
+        queue<TreeNode*> q; 
+        q.push(root); 
+
+        
+while(!q.empty()){
+
+vector<int> temp;
+int size = q.size();
+
+for(int i=0 ; i<size ; i++){
+
+TreeNode*front = q.front();
+
+q.pop();
+
+if(front->left!=NULL){
+q.push(front->left);
+
+}
+if(front->right!=NULL){
+    q.push(front->right);
+}
+
+temp.push_back(front->val);
+
+}
+
+
+ans.push_back(temp);
+
+}
+
+
+
+
+
+        return ans; 
+      
+    
+}
+};
+
