@@ -1,0 +1,35 @@
+************************************************************/
+
+https://classroom.codingninjas.com/app/classroom/me/14077/content/257311/offering/3506521/problem/1581
+
+TreeNode<int>* getNextLargerElement(TreeNode<int>* root, int x) {
+    // Write your code here
+    
+    TreeNode<int> *ans = NULL;
+    
+    
+    if(root->data > x){
+        ans = root;
+    }
+    
+    
+    for(int i=0 ; i< root->children.size() ; i++){
+        
+        
+    TreeNode<int> *out = getNextLargerElement(root->children[i] , x);
+    
+        
+        if(ans==NULL || (out->data > x && out->data < ans->data)){
+            
+            ans = out;
+        }
+        
+        
+        
+    }
+    
+    
+    return ans ;
+    
+    
+}
