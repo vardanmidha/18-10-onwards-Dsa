@@ -1,0 +1,50 @@
+//https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+// Approach is to right traverse a tree and pushing the left children in a queue..
+
+
+vector<int> diagonal(Node *root)
+{
+   // your code here
+   
+   
+   queue<Node*> q;
+   
+   vector<int> ans;
+   
+   if(root==NULL){
+       return ans;
+   }
+   
+   q.push(root);
+   
+   
+   while(!q.empty()){
+       
+       
+       Node *front = q.front();
+       q.pop();
+       
+       
+       while(front){
+           
+           if(front->left){
+               q.push(front->left);
+           }
+           
+           ans.push_back(front->data);
+           
+           front = front->right;
+           
+       }
+       
+       
+       
+       
+   }
+   
+   
+   return ans;
+   
+   
+}
