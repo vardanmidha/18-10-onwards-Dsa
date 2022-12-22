@@ -3,48 +3,104 @@
 // Approach is to right traverse a tree and pushing the left children in a queue..
 
 
+
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+
+// vector<int> diagonal(Node *root)
+// {
+//   // your code here
+   
+   
+//   queue<Node*> q;
+   
+//   vector<int> ans;
+   
+//   if(root==NULL){
+//       return ans;
+//   }
+   
+//   q.push(root);
+   
+   
+//   while(!q.empty()){
+       
+       
+//       Node *front = q.front();
+//       q.pop();
+       
+       
+//       while(front){
+           
+//           if(front->left){
+//               q.push(front->left);
+//           }
+           
+//           ans.push_back(front->data);
+           
+//           front = front->right;
+           
+//       }
+       
+       
+       
+       
+//   }
+   
+   
+//   return ans;
+   
+   
+// }
+
+
+void diagonalHelper(Node*root , map<int , vector<int>>&mpp , int d){
+    
+    if(root==NULL){
+        return ;
+    }
+    
+    
+    mpp[d].push_back(root->data);
+    diagonalHelper(root->left , mpp , d+1);
+    diagonalHelper(root->right , mpp , d);
+    
+    
+    
+    
+}
+
+
+
+
 vector<int> diagonal(Node *root)
 {
-   // your code here
-   
-   
-   queue<Node*> q;
-   
-   vector<int> ans;
-   
-   if(root==NULL){
-       return ans;
-   }
-   
-   q.push(root);
-   
-   
-   while(!q.empty()){
-       
-       
-       Node *front = q.front();
-       q.pop();
-       
-       
-       while(front){
-           
-           if(front->left){
-               q.push(front->left);
-           }
-           
-           ans.push_back(front->data);
-           
-           front = front->right;
-           
-       }
-       
-       
-       
-       
-   }
-   
-   
-   return ans;
-   
-   
+    
+    vector<int> ans;
+    if(root==NULL){
+        return ans;
+    }
+    
+    map<int , vector<int>> mpp;
+    
+    int d=0;
+    diagonalHelper(root , mpp , 0);
+    
+    
+    for(auto i:mpp){
+        
+        for(auto j:i.second){
+            
+            ans.push_back(j);
+        }
+        
+    }
+    
+    return ans;
 }
+
