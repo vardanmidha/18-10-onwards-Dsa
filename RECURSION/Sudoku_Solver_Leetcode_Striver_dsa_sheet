@@ -1,0 +1,89 @@
+
+
+//  c<='9' || c<'10' ???
+// Why aren't above two same??
+
+// Why in void function we are just calling bool function , as it should return something
+//  Or just the function should called , and it automatically implement the changes.
+class Solution
+{
+
+public:
+    bool isValid(vector<vector<char>> &board, int row, int col, char c)
+    {
+
+        for (int i = 0; i < 9; i++)
+        {
+
+            if (board[i][col] == c)
+            {
+                return false;
+            }
+
+            if (board[row][i] == c)
+            {
+                return false;
+            }
+
+            if (board[3 * (row / 3) + i / 3][3 * (col / 3) + (i % 3)] == c)
+            {
+                return false;
+            }
+        }
+    return true;
+    }
+
+public:
+    bool solve(vector<vector<char>> &board)
+    {
+
+        for (int i = 0; i < board.size(); i++)
+        {
+
+            for (int j = 0; j < board[i].size(); j++)
+            {
+
+                if (board[i][j] == '.')
+                {
+
+                    for (char c = '1'; c <= '9'; c++)
+                    {
+
+                        if (isValid(board, i, j, c))
+                        {
+
+                            board[i][j] = c;
+
+// This below recursive call tells whether the element which we have passed getting the right answer or not , if it is then the whole recursive call returns true , and it
+// would have filled all the elements and won't go to else conditions and not backtrack.
+// Whereas if it won't have gotten the right answer with right element it simply would have returned false and 
+// backtracked .
+
+                            if (solve(board) == true)
+                            {
+                                return true;
+                            }
+
+                            else
+                            {
+                                board[i][j] = '.';
+                            }
+                        }
+
+                   
+                    }
+                         return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+public:
+    void solveSudoku(vector<vector<char>> &board)
+    {
+
+        bool ans = solve(board);
+    }
+};

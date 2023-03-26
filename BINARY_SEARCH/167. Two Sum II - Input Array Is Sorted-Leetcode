@@ -1,0 +1,42 @@
+
+// Using 2pointer approach
+// We would have also done it by Binary search , but it would have taken O(nLogn) , time complexity.
+// As in that approach we take every element complement and check for every other , if the complement is present
+// or not.
+class Solution
+{
+public:
+    vector<int> twoSum(vector<int> &arr, int target)
+    {
+
+        int i = 0;
+        int j = arr.size() - 1;
+
+        vector<int> ans;
+
+        while (i < j)
+        {
+
+            if (arr[i] + arr[j] == target)
+            {
+
+                ans.push_back(i+1);
+                ans.push_back(j+1);
+                break;
+            }
+
+            else if (arr[i] + arr[j] > target)
+            {
+
+                j--;
+            }
+
+            else
+            {
+                // start ++;
+                i++;
+            }
+        }
+    return ans;
+    }
+};

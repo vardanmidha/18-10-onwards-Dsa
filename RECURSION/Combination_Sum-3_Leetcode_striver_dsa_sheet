@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/combination-sum-iii/
+// Same as Combination Sum-2 , just created arr self . And store {1-9} in the array and pass to helper function
+// In base case check the condition if k==3
+
+class Solution {
+public:
+    
+    void helper(  vector<int> &arr , int index ,int k, int target , vector<vector<int>> &ans , vector<int> &output ){
+        
+        
+ if ( target ==0 ||index>=arr.size())
+        {
+            
+            if(target==0 && output.size()==k){
+            ans.push_back(output);
+            }
+            return;
+        }
+
+        for (int i = index; i < arr.size(); i++)
+        {
+
+            if (i > index && arr[i] == arr[i - 1])
+            {
+
+                continue;
+            }
+
+            if (arr[i] > target)
+            {
+
+                break;
+            }
+
+            output.push_back(arr[i]);
+
+            // helper_better(arr, i + 1, target - arr[i], ans, out);
+            helper(arr , i+1 , k , target-arr[i] , ans , output);
+
+            output.pop_back();
+        }
+    
+        
+    }
+  
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+     
+        
+        vector<vector<int>> ans;
+        
+        vector<int> arr ={1,2,3,4,5,6,7,8,9};
+        
+        vector<int> output;
+        
+        helper(arr , 0 , k , n , ans , output);
+        
+       return ans; 
+        
+    }
+};
