@@ -1,0 +1,120 @@
+// We can do zig-zag by 2-3 approaches 
+// 1 - maintaining 2 stacks and storing elements into each other
+// 2 - By level order , reversing the vectors in alternate ones
+// 3- By level order , first storing the data from left to right and then from right to left.
+
+// Approach 1 -----
+class Solution
+{
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode *root)
+    {
+
+        vector<vector<int>> ans;
+        vector<int> out;
+        stack<TreeNode *> st1;
+        stack<TreeNode *> st2;
+
+        if (root == NULL)
+        {
+            return ans;
+        }
+
+        st1.push(root);
+        TreeNode *front1 = NULL;
+        TreeNode *front2 = NULL;
+
+        while (!st1.empty() || !st2.empty())
+        {
+
+            while (!st1.empty())
+            {
+
+                front1 = st1.top();
+
+                st1.pop();
+
+                out.push_back(front1->val);
+
+                if (front1->left != NULL)
+                {
+                    st2.push(front1->left);
+                }
+                if (front1->right != NULL)
+                {
+                    st2.push(front1->right);
+                }
+            }
+            if(!out.empty()){
+ans.push_back(out);
+out.clear();
+            }
+            while (!st2.empty())
+            {
+
+                front2 = st2.top();
+
+                st2.pop();
+
+                out.push_back(front2->val);
+
+             
+                if (front2->right != NULL)
+                {
+                    st1.push(front2->right);
+                }
+
+   if (front2->left != NULL)
+                {
+                    st1.push(front2->left);
+                }
+
+                /* code */
+            }
+            if(!out.empty()){
+            ans.push_back(out);
+            out.clear();
+            }
+        }
+
+        // ans.push_back(out);
+        return ans;
+    }
+};
+
+
+// Approach 2 ------
+
+
+
+// vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+//         int flag = 0;  //flag = 0 => L to R and flag = 1 => R to L
+//         vector<vector<int>> ans;
+//         if (root == NULL) return ans;
+        
+//         queue<TreeNode*> q;
+//         q.push(root);
+        
+//         while (!q.empty()){
+//             int size = q.size();
+//             vector<int> level;
+//             for (int i=0 ; i<size ; i++){
+//                 TreeNode *temp = q.front();
+//                 q.pop();
+//                 if (temp->left != NULL) q.push(temp->left);
+//                 if (temp->right != NULL) q.push(temp->right);
+//                 level.push_back(temp->val);
+//             }
+//             if (flag == 0){
+//                 ans.push_back(level);
+//                 flag = 1;
+//             }
+//             else if (flag == 1){
+//                 vector<int> rev_level = level;
+//                 reverse(rev_level.begin(), rev_level.end());
+//                 ans.push_back(rev_level);
+//                 flag = 0;
+//             }
+//         }
+//         return ans;
+//     }
